@@ -320,39 +320,55 @@ export default function CountryCapitalQuiz() {
   };
 
   return (
-    <div className="min-h-screen bg-background text-foreground w-full">
-      <nav className="flex items-center justify-between p-4 bg-primary text-primary-foreground">
-        <div className="flex items-end space-x-2">
-          <BrainCircuit className="h-6 w-6" />
-          <span className="text-3xl font-bold">quizzer</span>
-        </div>
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={toggleTheme}
-          aria-label="Toggle theme"
-        >
-          {theme === "dark" ? (
-            <Sun className="h-5 w-5" />
-          ) : (
-            <Moon className="h-5 w-5" />
-          )}
-        </Button>
-      </nav>
-
-      <main className="container mx-auto mt-8 p-4">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={gameState}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -20 }}
-            transition={{ duration: 0.3 }}
+    <div className="flex flex-col justify-between min-h-screen bg-background text-foreground w-full">
+      <div>
+        <nav className="flex items-center justify-between p-4 bg-primary text-primary-foreground">
+          <div className="flex items-end space-x-2">
+            <BrainCircuit className="h-6 w-6" />
+            <span className="text-3xl font-bold">quizzer</span>
+          </div>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
           >
-            {renderGameState()}
-          </motion.div>
-        </AnimatePresence>
-      </main>
+            {theme === "dark" ? (
+              <Sun className="h-5 w-5" />
+            ) : (
+              <Moon className="h-5 w-5" />
+            )}
+          </Button>
+        </nav>
+
+        <main className="container mx-auto mt-8 p-4">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={gameState}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: -20 }}
+              transition={{ duration: 0.3 }}
+            >
+              {renderGameState()}
+            </motion.div>
+          </AnimatePresence>
+        </main>
+      </div>
+
+      <footer className="text-center pb-8">
+        <p>
+          &copy; 2024 Todos os direitos reservados. Desenvolvido por{" "}
+          <a
+            href="https://www.linkedin.com/in/tamicaires/"
+            target="_blank"
+            className="text-decoration: none; color: inherit;"
+          >
+            <strong className="hover:text-primary">Thamires Carvalho</strong>
+          </a>
+          .
+        </p>
+      </footer>
     </div>
   );
 }
