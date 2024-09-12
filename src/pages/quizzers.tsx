@@ -351,24 +351,25 @@ export default function CountryCapitalQuiz() {
               transition={{ duration: 0.3 }}
             >
               {renderGameState()}
+              <footer className="text-center py-8">
+                <p>
+                  Desenvolvido por{" "}
+                  <a
+                    href="https://www.linkedin.com/in/tamicaires/"
+                    target="_blank"
+                    className="text-decoration: none; color: inherit;"
+                  >
+                    <strong className="hover:text-primary">
+                      Thamires Carvalho
+                    </strong>
+                  </a>
+                  .
+                </p>
+              </footer>
             </motion.div>
           </AnimatePresence>
         </main>
       </div>
-
-      <footer className="text-center pb-8">
-        <p>
-          &copy; 2024 Todos os direitos reservados. Desenvolvido por{" "}
-          <a
-            href="https://www.linkedin.com/in/tamicaires/"
-            target="_blank"
-            className="text-decoration: none; color: inherit;"
-          >
-            <strong className="hover:text-primary">Thamires Carvalho</strong>
-          </a>
-          .
-        </p>
-      </footer>
     </div>
   );
 }
