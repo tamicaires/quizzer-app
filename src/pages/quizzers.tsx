@@ -19,7 +19,6 @@ import {
 import {
   Moon,
   Sun,
-  Globe,
   ArrowLeft,
   Trophy,
   Frown,
