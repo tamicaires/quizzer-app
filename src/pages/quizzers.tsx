@@ -92,14 +92,27 @@ export default function CountryCapitalQuiz() {
     setShowAnswer(false);
   };
 
+  const removeDiacritics = (str: string) =>
+    str.normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (country && userAnswer.toLowerCase() === country.capital.toLowerCase()) {
-      setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
-      handleNextQuestion();
-    } else {
-      setScore((prev) => ({ ...prev, incorrect: prev.incorrect + 1 }));
-      setShowAnswer(true);
+
+    if (country) {
+      const normalizedAnswer = removeDiacritics(
+        userAnswer.trim().toLowerCase()
+      );
+      const normalizedCapital = removeDiacritics(
+        country.capital.trim().toLowerCase()
+      );
+
+      if (normalizedAnswer === normalizedCapital) {
+        setScore((prev) => ({ ...prev, correct: prev.correct + 1 }));
+        handleNextQuestion();
+      } else {
+        setScore((prev) => ({ ...prev, incorrect: prev.incorrect + 1 }));
+        setShowAnswer(true);
+      }
     }
   };
 
