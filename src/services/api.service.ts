@@ -1,3 +1,3 @@
 export const constants = {
-  API_URL: "quizzer-api.vercel.app",
+  API_URL: "https://quizzer-api.vercel.app",
 };
