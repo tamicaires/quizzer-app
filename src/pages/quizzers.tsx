@@ -29,6 +29,7 @@ import { useTheme } from "@/context/themeContext";
 import { motion, AnimatePresence } from "framer-motion";
 import confetti from "canvas-confetti";
 import { constants } from "@/services/api.service";
+import mockedCountries from "@/mocker/mockCountries"
 
 interface Country {
   name: string;
@@ -46,15 +47,18 @@ const fetchCountry = async (
   continent: string = ""
 ): Promise<Country | null> => {
   try {
-    const response = await axios.get<Country[]>(
-      `${constants.API_URL}/api/quiz/countries`,
-      { params: { continent: continent === "todos" ? "" : continent } }
-    );
-    console.log("API_URL", constants.API_URL);
-    const countries = response.data;
-    return countries[Math.floor(Math.random() * countries.length)] || null;
+    const filteredCountries = mockCountries.filter((c) => {
+      return continent === "todos" || c.continent === continent;
+    });
+
+    if (filteredCountries.length === 0) return null;
+
+    const randomCountry =
+      filteredCountries[Math.floor(Math.random() * filteredCountries.length)];
+
+    return randomCountry;
   } catch (error) {
-    console.error("Erro ao buscar país:", error);
+    console.error("Erro ao buscar país do mock:", error);
     return null;
   }
 };
