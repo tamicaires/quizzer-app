@@ -1,4 +1,4 @@
-[
+const mockedCountries = [
   {
     "country_name": "Alemanha",
     "capital": "Berlim",
