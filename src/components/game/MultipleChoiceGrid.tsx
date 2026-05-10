@@ -45,7 +45,7 @@ export default function MultipleChoiceGrid({
                   ? "bg-red-500/15 border-red-500/50 text-red-700 dark:text-red-300 ring-2 ring-red-500/30"
                   : disabled
                     ? "border-border bg-muted/20 text-muted-foreground cursor-default"
-                    : "border-border bg-card hover:bg-primary/5 hover:border-primary/40 cursor-pointer"
+                    : "border-border bg-card cursor-pointer"
             )}
           >
             <span

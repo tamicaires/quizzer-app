@@ -166,6 +166,7 @@ export default function PlayingScreen() {
 
         {config.mode === "multiple-choice" ? (
           <MultipleChoiceGrid
+            key={state.currentQuestionIndex}
             options={displayOptions}
             correctAnswer={correctAnswer}
             onSelect={handleAnswer}
