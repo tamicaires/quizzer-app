@@ -37,6 +37,7 @@ export default function MultipleChoiceGrid({
             className={cn(
               "relative flex items-center gap-2.5 w-full rounded-2xl px-3 py-4 text-left",
               "border text-sm font-medium transition-all duration-150",
+              "focus:outline-none focus-visible:outline-none",
               "active:scale-[0.96] min-h-[56px]",
               isCorrect
                 ? "bg-emerald-500/15 border-emerald-500/50 text-emerald-700 dark:text-emerald-300 ring-2 ring-emerald-500/30"
