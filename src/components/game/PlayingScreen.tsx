@@ -32,8 +32,11 @@ export default function PlayingScreen() {
   const [shaking, setShaking] = useState(false);
   const popKey = useRef(0);
 
-  const config = state.config!;
-  const country = state.currentCountry!;
+  // Guard: state may be reset (GO_TO_MENU) while component is still mounted
+  if (!state.config || !state.currentCountry) return null;
+
+  const config = state.config;
+  const country = state.currentCountry;
   const correctAnswer = getCorrectAnswer(country, config.direction);
 
   const handleTimerExpire = useCallback(() => {

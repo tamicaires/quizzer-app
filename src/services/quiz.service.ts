@@ -22,7 +22,7 @@ function mapCountry(raw: RawCountry): Country {
     name: raw.country_name,
     capital: raw.capital,
     continent: raw.continent,
-    flag: `https://flagcdn.com/w640/${raw.country_code.toLowerCase()}.png`,
+    flag: `https://flagcdn.com/w320/${raw.country_code.toLowerCase()}.png`,
     code: raw.country_code,
   };
 }

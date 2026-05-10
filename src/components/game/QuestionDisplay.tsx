@@ -1,10 +1,38 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
+import { Loader2 } from "lucide-react";
+import { cn } from "@/lib/utils";
 import type { Country } from "@/services/quiz.service";
 import type { QuestionDirection } from "@/types/game.types";
 
 interface QuestionDisplayProps {
   country: Country;
   direction: QuestionDirection;
+}
+
+function FlagImage({ src, alt }: { src: string; alt: string }) {
+  const [loaded, setLoaded] = useState(false);
+
+  return (
+    <div className="relative w-full max-w-[280px] aspect-[3/2] rounded-2xl overflow-hidden shadow-lg bg-secondary">
+      {!loaded && (
+        <div className="absolute inset-0 flex items-center justify-center">
+          <Loader2 className="h-6 w-6 text-muted-foreground animate-spin" />
+        </div>
+      )}
+      <img
+        src={src}
+        alt={alt}
+        loading="eager"
+        onLoad={() => setLoaded(true)}
+        className={cn(
+          "w-full h-full object-cover transition-opacity duration-200",
+          loaded ? "opacity-100" : "opacity-0"
+        )}
+      />
+      <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-2xl" />
+    </div>
+  );
 }
 
 export default function QuestionDisplay({
@@ -23,14 +51,7 @@ export default function QuestionDisplay({
         <p className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
           Qual país?
         </p>
-        <div className="relative w-full max-w-[280px] aspect-[3/2] rounded-2xl overflow-hidden shadow-lg">
-          <img
-            src={country.flag}
-            alt="Bandeira"
-            className="w-full h-full object-cover"
-          />
-          <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-2xl" />
-        </div>
+        <FlagImage src={country.flag} alt="Bandeira" />
       </motion.div>
     );
   }
@@ -65,14 +86,7 @@ export default function QuestionDisplay({
       <p className="text-xs font-medium text-muted-foreground tracking-wide uppercase">
         Qual é a capital?
       </p>
-      <div className="relative w-full max-w-[280px] aspect-[3/2] rounded-2xl overflow-hidden shadow-lg">
-        <img
-          src={country.flag}
-          alt={`Bandeira de ${country.name}`}
-          className="w-full h-full object-cover"
-        />
-        <div className="absolute inset-0 ring-1 ring-inset ring-black/10 rounded-2xl" />
-      </div>
+      <FlagImage src={country.flag} alt={`Bandeira de ${country.name}`} />
       <p className="text-xl sm:text-2xl font-extrabold">{country.name}</p>
     </motion.div>
   );
