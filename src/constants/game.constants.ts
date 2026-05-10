@@ -59,19 +59,32 @@ export const CONTINENTS = [
  * Tier 3: Everything not in tier 1 or 2 (obscure/small nations).
  */
 export const TIER_1_COUNTRIES = new Set([
-  "BR", "US", "MX", "AR", "CA", "CO", "CL", "PE",
+  // Américas
+  "BR", "US", "MX", "AR", "CA", "CO", "CL", "PE", "CU",
+  // Europa
   "FR", "DE", "GB", "IT", "ES", "PT", "RU", "GR", "NL", "CH", "SE", "NO",
-  "JP", "CN", "IN", "KR", "TR", "AU",
-  "EG", "ZA",
+  "AT", "BE", "DK", "FI", "IE", "PL",
+  // Ásia
+  "JP", "CN", "IN", "KR", "TR",
+  // Oceania
+  "AU", "NZ",
+  // África
+  "EG", "ZA", "NG",
 ]);
 
 export const TIER_2_COUNTRIES = new Set([
-  "VE", "UY", "EC", "BO", "PY",
-  "CU", "JM", "HT",
-  "AT", "BE", "DK", "FI", "IE", "PL", "CZ", "HU", "RO", "HR", "UA", "BG",
-  "RS", "SK", "IS", "BA", "LT", "LV", "EE", "SI", "AL", "ME", "BY",
+  // Américas
+  "VE", "UY", "EC", "BO", "PY", "JM", "HT", "TT", "SR", "GY",
+  // Europa
+  "CZ", "HU", "RO", "HR", "UA", "BG", "RS", "SK", "IS", "BA",
+  "LT", "LV", "EE", "SI", "AL", "ME", "BY",
+  // Ásia
   "TH", "VN", "ID", "MY", "PK", "BD", "IR", "IQ", "IL", "SA", "AE",
-  "PH", "KH", "SG", "QA", "KW", "JO", "LB", "SY", "AF", "NP",
-  "NZ",
-  "NG", "KE", "ET", "MA", "DZ", "AO", "GH", "TN", "TZ", "LY",
+  "KH", "SG", "QA", "KW", "JO", "LB", "SY", "AF", "NP", "TW",
+  "MN", "GE", "AZ", "AM",
+  // Oceania
+  "FJ", "PG",
+  // África
+  "KE", "ET", "MA", "DZ", "AO", "GH", "TN", "LY", "MZ", "CM",
+  "SN", "RW", "CI", "SD", "TZ",
 ]);

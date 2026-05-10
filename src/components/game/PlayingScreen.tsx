@@ -31,13 +31,11 @@ export default function PlayingScreen() {
   const [scorePop, setScorePop] = useState<{ key: number; pts: number } | null>(null);
   const [shaking, setShaking] = useState(false);
   const popKey = useRef(0);
-
-  // Guard: state may be reset (GO_TO_MENU) while component is still mounted
-  if (!state.config || !state.currentCountry) return null;
+  const prevScore = useRef(state.score);
 
   const config = state.config;
   const country = state.currentCountry;
-  const correctAnswer = getCorrectAnswer(country, config.direction);
+  const correctAnswer = config && country ? getCorrectAnswer(country, config.direction) : "";
 
   const handleTimerExpire = useCallback(() => {
     if (state.feedbackState !== "idle") return;
@@ -48,9 +46,9 @@ export default function PlayingScreen() {
   }, [dispatch, playIncorrect, state.feedbackState]);
 
   const { timeRemaining, fraction, reset: resetTimer } = useTimer({
-    totalSeconds: config.timerSeconds,
+    totalSeconds: config?.timerSeconds ?? null,
     onExpire: handleTimerExpire,
-    running: state.feedbackState === "idle",
+    running: state.feedbackState === "idle" && !!config,
   });
 
   useEffect(() => {
@@ -61,15 +59,15 @@ export default function PlayingScreen() {
   }, [state.currentQuestionIndex, state.currentOptions, resetTimer]);
 
   const proceedAfterFeedback = useCallback(() => {
+    if (!config) return;
     const isLast = state.currentQuestionIndex + 1 >= config.questionCount;
     if (state.livesRemaining <= 0 || isLast) {
       dispatch({ type: "SHOW_RESULTS" });
       return;
     }
     nextQuestion();
-  }, [state.currentQuestionIndex, state.livesRemaining, config.questionCount, dispatch, nextQuestion]);
+  }, [state.currentQuestionIndex, state.livesRemaining, config, dispatch, nextQuestion]);
 
-  const prevScore = useRef(state.score);
   useEffect(() => {
     if (state.score > prevScore.current) {
       const pts = state.score - prevScore.current;
@@ -104,13 +102,17 @@ export default function PlayingScreen() {
   );
 
   const handleHint = useCallback(() => {
+    if (!config) return;
     dispatch({ type: "USE_HINT" });
     if (config.mode === "multiple-choice") {
       setDisplayOptions(eliminateOptions(displayOptions, correctAnswer));
     } else {
       setHintLetter(getHintFirstLetter(correctAnswer));
     }
-  }, [dispatch, config.mode, displayOptions, correctAnswer]);
+  }, [dispatch, config, displayOptions, correctAnswer]);
+
+  // Guard: state may be reset (GO_TO_MENU) while component is still mounted
+  if (!config || !country) return null;
 
   const isFeedback = state.feedbackState !== "idle";
 

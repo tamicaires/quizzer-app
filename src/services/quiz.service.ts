@@ -128,8 +128,8 @@ function getCountryTierByCode(code: string): number {
  * allowed tiers, continent, and excluding already-asked countries.
  *
  * Tier progression based on difficulty + streak:
- * - Easy:   start T1 only → after streak 2 add T2 → after streak 4 add T3
- * - Medium: start T1+T2   → after streak 2 add T3
+ * - Easy:   T1 only → streak 4: add T2 → streak 8: add T3
+ * - Medium: T1+T2   → streak 4: add T3
  * - Hard:   all tiers from the start
  */
 export function getAdaptiveCountry(
@@ -145,11 +145,11 @@ export function getAdaptiveCountry(
   if (difficulty === "hard") {
     maxTier = 3;
   } else if (difficulty === "medium") {
-    maxTier = streak >= 2 ? 3 : 2;
+    maxTier = streak >= 4 ? 3 : 2;
   } else {
-    // easy
-    if (streak >= 4) maxTier = 3;
-    else if (streak >= 2) maxTier = 2;
+    // easy — keeps well-known countries much longer
+    if (streak >= 8) maxTier = 3;
+    else if (streak >= 4) maxTier = 2;
     else maxTier = 1;
   }
 
